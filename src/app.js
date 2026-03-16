@@ -21,6 +21,7 @@ const DEFAULT_STATE = {
 
 let state = { ...DEFAULT_STATE }
 let animateCard = null
+let draggingFromCatalog = false
 
 function loadState() {
   try {
@@ -55,7 +56,7 @@ function getSyuyuDef(cardId) {
   return getSyuyuCards(state.seriesId).find((c) => c.id === cardId)
 }
 
-function addCard(cardId, target) {
+function addCard(cardId, target, insertAt) {
   if (isTargetFull(target)) return
   const syuyu = getSyuyuDef(cardId)
   const entry = {
@@ -64,16 +65,8 @@ function addCard(cardId, target) {
     max: syuyu ? syuyu.max : null,
   }
   const arr = getArrForTarget(target)
-  const idx = arr ? arr.length : 0
-  if (target === 'myHand') state.myHand = [...state.myHand, entry]
-  else if (target === 'myBank') state.myBank = [...state.myBank, entry]
-  else if (target.startsWith('enemyHand-')) {
-    const i = parseInt(target.split('-')[1])
-    state.enemies[i].handCards = [...state.enemies[i].handCards, entry]
-  } else if (target.startsWith('enemyBank-')) {
-    const i = parseInt(target.split('-')[1])
-    state.enemies[i].bankCards = [...state.enemies[i].bankCards, entry]
-  }
+  const idx = (insertAt != null && insertAt >= 0 && insertAt <= arr.length) ? insertAt : arr.length
+  arr.splice(idx, 0, entry)
   animateCard = { target, index: idx }
   saveState()
   render()
@@ -314,6 +307,7 @@ function renderCard(card, arr, index, target) {
         <div class="card-remaining">
           <span class="remaining-num ${overMin ? 'used-over-min' : ''}">${used}</span>
           <span class="remaining-max">${syuyu.min}~${syuyu.max}</span>
+          ${target === 'myBank' || target.startsWith('enemyBank-') ? '' : `<button class="btn-undo-touch" data-action="undoTouch" data-arr="${target}" data-idx="${index}" title="戻す">▼</button>`}
         </div>
         ` : ''}
       </div>
@@ -584,6 +578,7 @@ function bindMain() {
   addEnemyBtn?.addEventListener('click', addEnemy)
   addEnemyBtn?.addEventListener('dragover', (e) => {
     e.preventDefault()
+    e.dataTransfer.dropEffect = 'move'
     addEnemyBtn.classList.add('drag-over')
   })
   addEnemyBtn?.addEventListener('dragleave', () => {
@@ -697,13 +692,12 @@ function bindMain() {
     const arr = getArrForTarget(target)
 
     const isBank = target === 'myBank' || target.startsWith('enemyBank-')
+    let cardHoldTimer = null
+    let cardRepeatTimer = null
+    let cardResetTimer = null
+    let cardHolding = false
+    let cardDidRepeat = false
     if (!isBank && getSyuyuDef(arr[index]?.id)) {
-      let cardHoldTimer = null
-      let cardRepeatTimer = null
-      let cardResetTimer = null
-      let cardHolding = false
-      let cardDidRepeat = false
-      let holdStartTime = 0
       const updateCardDisplay = () => {
         const card = arr[index]
         const syuyu = getSyuyuDef(card?.id)
@@ -724,38 +718,40 @@ function bindMain() {
         if (!cardHolding) return
         cardHolding = false
         clearCardTimers()
+        cardEl.draggable = true
         if (!cardDidRepeat) {
           useSyuyu(arr, index)
         } else {
           render()
         }
       }
+      const startDecrement = () => {
+        cardEl.draggable = false
+        if (undoUseSyuyu(arr, index, true)) { updateCardDisplay(); cardDidRepeat = true }
+        cardRepeatTimer = setInterval(() => {
+          if (!cardHolding || !undoUseSyuyu(arr, index, true)) { clearCardTimers(); if (cardHolding) { cardHolding = false; cardEl.draggable = true; render() }; return }
+          updateCardDisplay()
+        }, 500)
+      }
       const startCardHold = (e) => {
         if (e.target.closest('button') || e.target.closest('[contenteditable="true"]') || e.target.closest('[data-action="editName"]')) return
         cardHolding = true
         cardDidRepeat = false
-        holdStartTime = Date.now()
         cardResetTimer = setTimeout(() => {
           if (!cardHolding) return
           clearCardTimers()
+          cardEl.draggable = false
           const card = arr[index]
           if (card) { card.remaining = card.max; cardDidRepeat = true; updateCardDisplay() }
         }, 3500)
         cardHoldTimer = setTimeout(() => {
           if (!cardHolding) return
-          if (undoUseSyuyu(arr, index, true)) { updateCardDisplay(); cardDidRepeat = true }
-          cardRepeatTimer = setInterval(() => {
-            if (!cardHolding || !undoUseSyuyu(arr, index, true)) { clearCardTimers(); if (cardHolding) { cardHolding = false; render() }; return }
-            updateCardDisplay()
-          }, 500)
+          startDecrement()
         }, 1000)
       }
       cardEl.addEventListener('mousedown', startCardHold)
       cardEl.addEventListener('mouseup', stopCardHold)
       cardEl.addEventListener('mouseleave', stopCardHold)
-      cardEl.addEventListener('touchstart', startCardHold, { passive: true })
-      cardEl.addEventListener('touchend', stopCardHold)
-      cardEl.addEventListener('touchcancel', stopCardHold)
       cardEl.addEventListener('click', (e) => { if (e.target.closest('button')) return; e.preventDefault() })
     }
 
@@ -790,9 +786,20 @@ function bindMain() {
         if (e.key === 'Enter') { e.preventDefault(); nameEl.blur() }
       }
     })
+    document.querySelectorAll(`[data-action="undoTouch"][data-arr="${target}"][data-idx="${index}"]`).forEach((btn) => {
+      btn.onclick = (e) => { e.stopPropagation(); undoUseSyuyu(arr, index) }
+    })
     cardEl.addEventListener('dragstart', (e) => {
+      if (cardHolding) {
+        cardHolding = false
+        if (cardHoldTimer) { clearTimeout(cardHoldTimer); cardHoldTimer = null }
+        if (cardRepeatTimer) { clearInterval(cardRepeatTimer); cardRepeatTimer = null }
+        if (cardResetTimer) { clearTimeout(cardResetTimer); cardResetTimer = null }
+        if (cardDidRepeat) render()
+        cardDidRepeat = false
+      }
       e.dataTransfer.setData('application/json', JSON.stringify({ target, index, type: 'card' }))
-      e.dataTransfer.effectAllowed = 'copyMove'
+      e.dataTransfer.effectAllowed = 'all'
       cardEl.classList.add('dragging')
       document.querySelector('.trash-zone')?.classList.add('visible')
     })
@@ -898,6 +905,7 @@ function bindMain() {
   document.querySelectorAll('.tab[data-tab]').forEach((tab) => {
     tab.addEventListener('dragover', (e) => {
       e.preventDefault()
+      e.dataTransfer.dropEffect = 'move'
       tab.classList.add('drag-over')
     })
     tab.addEventListener('dragleave', () => {
@@ -932,10 +940,19 @@ function bindMain() {
 
     zone.addEventListener('dragover', (e) => {
       e.preventDefault()
-      if (dropZone === 'trash') return
+      if (dropZone === 'trash') {
+        e.dataTransfer.dropEffect = 'move'
+        return
+      }
+      const full = isTargetFull(dropZone)
+      if (draggingFromCatalog && full) {
+        e.dataTransfer.dropEffect = 'none'
+        return
+      }
+      e.dataTransfer.dropEffect = draggingFromCatalog ? 'copy' : 'move'
       clearHighlights()
-      const target = e.target.closest('.card-add-slot')
-      if (target) target.classList.add('drag-over')
+      const slotTarget = e.target.closest('.card-add-slot')
+      if (slotTarget) slotTarget.classList.add('drag-over')
       const cardTarget = e.target.closest('.card')
       if (cardTarget) {
         const cardData = cardTarget.dataset
@@ -944,6 +961,7 @@ function bindMain() {
         const card = arr?.[idx]
         if (card && (card.id === 'dabing' || card.id === 'kikan-encho' || card.id === 'kimigasubete' || card.id === 'cardbank')) {
           cardTarget.classList.add('drag-target')
+          if (card.id === 'dabing') e.dataTransfer.dropEffect = 'copy'
         }
       }
     })
@@ -973,7 +991,7 @@ function bindMain() {
             }
           }
         } else if (data.type === 'catalog' && dropZone !== 'trash') {
-          addCard(data.cardId, dropZone)
+          addCard(data.cardId, dropZone, dropIdx)
         }
       } catch (err) {}
     })
@@ -981,13 +999,16 @@ function bindMain() {
 
   document.querySelectorAll('.catalog-card').forEach((el) => {
     el.addEventListener('dragstart', (e) => {
+      draggingFromCatalog = true
       e.dataTransfer.setData('application/json', JSON.stringify({ type: 'catalog', cardId: el.dataset.cardId }))
-      e.dataTransfer.effectAllowed = 'copy'
+      e.dataTransfer.effectAllowed = 'all'
     })
+    el.addEventListener('dragend', () => { draggingFromCatalog = false })
   })
 
   document.querySelector('.trash-zone')?.addEventListener('dragover', (e) => {
     e.preventDefault()
+    e.dataTransfer.dropEffect = 'move'
     e.currentTarget.classList.add('drag-over')
   })
   document.querySelector('.trash-zone')?.addEventListener('dragleave', (e) => {
