@@ -305,7 +305,7 @@ function renderCard(card, arr, index, target) {
         <div class="card-remaining">
           <span class="remaining-num ${overMin ? 'used-over-min' : ''}">${used}</span>
           <span class="remaining-max">${syuyu.min}~${syuyu.max}</span>
-          ${target === 'myBank' || target.startsWith('enemyBank-') ? '' : `<button class="btn-undo-touch" data-action="undoTouch" data-arr="${target}" data-idx="${index}" title="戻す">▼</button>`}
+          ${target === 'myBank' || target.startsWith('enemyBank-') ? '' : `<button class="btn-undo-touch ${used === 0 ? 'hidden' : ''}" data-action="undoTouch" data-arr="${target}" data-idx="${index}" title="戻す">▼</button>`}
         </div>
         ` : ''}
       </div>

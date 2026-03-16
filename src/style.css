@@ -482,6 +482,11 @@ body {
   cursor: pointer;
 }
 
+.btn-undo-touch.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .card-effect {
   font-size: 0.75rem;
   color: var(--text-muted);
