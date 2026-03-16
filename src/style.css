@@ -260,7 +260,6 @@ body {
   display: flex;
   flex-direction: column;
   padding: 0.5rem 0;
-  min-height: 200px;
 }
 
 .tab-panel {
@@ -874,9 +873,9 @@ body {
   }
 }
 
-/* コンテンツ下部にカタログ分の余白 */
-.content-area {
-  padding-bottom: 320px;
+/* カタログが開いているときのみ下余白を確保 */
+.main-wrap:has(.catalog-wrap.open) .content-area {
+  padding-bottom: 40vh;
 }
 
 @media (max-width: 767px) {
