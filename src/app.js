@@ -204,20 +204,18 @@ function clearAll(target) {
 
 function hasAnyCardData() {
   return state.myHand.length > 0 || state.myBank.length > 0 ||
-    state.enemies.some((e) => e.handCards.length > 0 || e.bankCards.length > 0)
+    state.enemies.length > 0
 }
 
 function clearAllCardData() {
   state.myHand = []
   state.myBank = []
-  state.enemies.forEach((e) => { e.handCards = []; e.bankCards = [] })
+  state.enemies = []
+  state.currentTab = 'my'
+  state.myName = '自分'
 }
 
 function setSeries(id) {
-  if (hasAnyCardData()) {
-    if (!confirm('既存のデータをクリアしてよろしいですか？')) return
-    clearAllCardData()
-  }
   state.seriesId = id
   state.catalogOpen = false
   saveState()
@@ -436,7 +434,7 @@ function renderMain() {
       <header class="header">
         <h1>MOMOTETSU Card Manager</h1>
         <div class="header-actions">
-          <button data-action="changeSeries">${seriesName}</button>
+          <button data-action="changeSeries">${seriesName} <span class="close-mark">×</span></button>
         </div>
       </header>
       ${tabsHtml}
@@ -614,11 +612,18 @@ function bindMain() {
   document.querySelectorAll('[data-action="clearAll"]').forEach((btn) => {
     btn.onclick = () => { if (confirm('すべてのカードを削除しますか？')) clearAll(btn.dataset.target) }
   })
-  document.querySelector('[data-action="changeSeries"]')?.addEventListener('click', () => {
-    state.seriesId = null
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
-    render()
-  })
+  const changeSeriesBtn = document.querySelector('[data-action="changeSeries"]')
+  if (changeSeriesBtn) {
+    changeSeriesBtn.onclick = () => {
+      if (hasAnyCardData()) {
+        if (!confirm('既存のデータをクリアしてよろしいですか？')) return
+        clearAllCardData()
+      }
+      state.seriesId = null
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+      render()
+    }
+  }
   document.querySelector('[data-action="toggleCatalog"]')?.addEventListener('click', () => {
     state.catalogOpen = !state.catalogOpen
     const wrap = document.querySelector('.catalog-wrap')

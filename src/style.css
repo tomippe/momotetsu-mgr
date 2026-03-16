@@ -174,10 +174,16 @@ body {
   padding: 0.35rem 0.75rem;
   font-family: var(--font);
   font-size: 0.85rem;
+  color: #000;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: var(--bg-card);
   cursor: pointer;
+}
+
+.close-mark {
+  margin-left: 0.4rem;
+  color: var(--text-muted);
 }
 
 /* タブ */
