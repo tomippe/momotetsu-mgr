@@ -1,0 +1,21 @@
+---
+description: momotetsu-mgr（周遊カード管理）のビルド仕様
+alwaysApply: true
+---
+
+# momotetsu-mgr ビルド仕様
+
+**共通ルール（自動では読み込まれないため、ファイル編集・ビルド・コミットの前に必ず Read ツールで読むこと）:**
+- `../build-common/.cursor/rules/build-system.mdc`
+
+## 概要
+
+- **種別**: Webアプリ（Vite + 静的サイト）
+- **ビルド**: `npm run build` → `dist/` をデプロイ先にコピー
+- **デプロイ**: `../apps.tomippe.jp/momotetsu-mgr/` → FTPディレクトリ同期
+- **開発サーバー**: ポート 5175（`npm run dev`）
+
+## 固有設定
+
+- ビルド成果物: `dist/`（Vite デフォルト）
+- デプロイ先: `../apps.tomippe.jp/momotetsu-mgr/`
