@@ -331,7 +331,7 @@ function renderSeriesSelect() {
           <button class="series-btn" data-series="${s.id}">
             <span class="series-label">${s.label}</span>
             ${s.subtitle ? `<small class="series-subtitle">${s.subtitle}</small>` : ''}
-            <span class="series-platform">${s.platform}</span>
+            <span class="series-platforms">${(Array.isArray(s.platform) ? s.platform : [s.platform]).map((p) => `<span class="series-platform">${p}</span>`).join('')}</span>
           </button>
         `).join('')}
       </div>

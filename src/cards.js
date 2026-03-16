@@ -14,7 +14,7 @@ export const CARD_CATEGORIES = {
 
 export const SERIES_LIST = [
   { id: 'switch', name: '桃太郎電鉄 昭和 平成 令和も定番！', label: '昭和 平成 令和も定番！', subtitle: '', short: '昭和 平成 令和も定番！', platform: 'Switch', maxHand: 8, maxBank: 16 },
-  { id: 'momotetsu2', name: '桃太郎電鉄２ ～あなたの町も きっとある～ 東日本編＋西日本編', label: '２ 東日本編＋西日本編', subtitle: '～あなたの町も きっとある～', short: '２ 東日本編＋西日本編', platform: 'Switch 2', maxHand: 8, maxBank: 16 },
+  { id: 'momotetsu2', name: '桃太郎電鉄２ ～あなたの町も きっとある～ 東日本編＋西日本編', label: '２ 東日本編＋西日本編', subtitle: '～あなたの町も きっとある～', short: '２ 東日本編＋西日本編', platform: ['Switch', 'Switch 2'], maxHand: 8, maxBank: 16 },
   { id: 'world', name: '桃太郎電鉄ワールド ～地球は希望でまわってる！～', label: 'ワールド', subtitle: '～地球は希望でまわってる！～', short: 'ワールド', platform: 'Switch', maxHand: 8, maxBank: 16 },
   { id: 'japanplus', name: '桃太郎電鉄JAPAN+', label: 'JAPAN+', subtitle: '', short: 'JAPAN+', platform: 'スマホ', maxHand: 8, maxBank: 16 },
 ]

@@ -98,8 +98,15 @@ body {
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.series-platforms {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  display: flex;
+  gap: 0.3rem;
+  justify-content: center;
+}
+
 .series-platform {
-  margin-top: 0.5rem;
   display: inline-block;
   padding: 0.2em 0.6em;
   font-size: 0.65rem;
@@ -122,6 +129,7 @@ body {
   font-weight: 400;
   color: var(--text-muted);
   line-height: 1.2;
+  margin-bottom: 0.25rem;
 }
 
 .series-btn:hover {
