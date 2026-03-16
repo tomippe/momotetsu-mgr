@@ -490,6 +490,7 @@ function getDropIndex(zone, clientX, clientY) {
 }
 
 function render() {
+  document.activeElement?.blur()
   const app = document.getElementById('app')
   if (!state.seriesId) {
     app.innerHTML = renderSeriesSelect()
