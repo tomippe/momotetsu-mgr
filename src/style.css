@@ -470,7 +470,7 @@ body {
   background: none;
   color: var(--text-muted);
   font-size: 0.8rem;
-  padding: 0;
+  padding: 0.2rem 1.5rem;
   margin: 0.25rem auto 0;
   line-height: 1;
   cursor: pointer;
