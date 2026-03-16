@@ -35,7 +35,7 @@ body {
   background-color: #7DD3FC;
   background-size: cover;
   color: var(--text);
-  min-height: 100vh;
+  min-height: 100dvh;
   line-height: 1.5;
 }
 
@@ -52,7 +52,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 80vh;
+  min-height: 80dvh;
   padding: 1rem;
 }
 
@@ -145,7 +145,7 @@ body {
 .main-wrap {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .header {
@@ -596,7 +596,7 @@ body {
 }
 
 .catalog-wrap.open {
-  max-height: 40vh;
+  max-height: 40dvh;
 }
 
 .catalog-toggle {
@@ -715,7 +715,7 @@ body {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
   width: 90%;
   max-width: 480px;
-  max-height: 70vh;
+  max-height: 70dvh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -875,7 +875,7 @@ body {
 
 /* カタログが開いているときのみ下余白を確保 */
 .main-wrap:has(.catalog-wrap.open) .content-area {
-  padding-bottom: 40vh;
+  padding-bottom: 40dvh;
 }
 
 @media (max-width: 767px) {
