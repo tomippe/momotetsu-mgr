@@ -318,8 +318,8 @@ function renderCard(card, arr, index, target) {
 function renderSeriesSelect() {
   return `
     <div class="series-select">
-      <h1>MOMOTETSU Card Manager</h1>
-      <p class="series-select-prompt" style="margin-bottom: 1.5rem;">シリーズを選んでください</p>
+      <h1>MOMOTETSU<br>Card Manager</h1>
+      <p class="series-select-prompt" style="margin-bottom: 0.75rem;">シリーズを選んでください</p>
       <div class="series-grid">
         ${SERIES_LIST.map((s) => `
           <button class="series-btn" data-series="${s.id}">
