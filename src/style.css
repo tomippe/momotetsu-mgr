@@ -874,7 +874,7 @@ body {
 }
 
 /* カタログが開いているときのみ下余白を確保 */
-.main-wrap:has(.catalog-wrap.open) .content-area {
+#app:has(.catalog-wrap.open) .content-area {
   padding-bottom: 40dvh;
 }
 
