@@ -1,8 +1,11 @@
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
+/** 本番の配置パス（末尾スラッシュ必須）。相対 base だと start_url が .../run のときアセットが 404 になり白画面になる */
+const APP_BASE = '/momotetsu-mgr/run/'
+
 export default defineConfig({
-  base: './',
+  base: APP_BASE,
   server: {
     host: true,
     port: 5176,
