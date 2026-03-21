@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
-/** 本番の配置パス（末尾スラッシュ必須）。相対 base だと start_url が .../run のときアセットが 404 になり白画面になる */
-const APP_BASE = '/momotetsu-mgr/run/'
+/** 本番の配置パス（末尾スラッシュ必須）。FTP は apps/momotetsu-mgr/ 直下なので /run は付けない */
+const APP_BASE = '/momotetsu-mgr/'
 
 export default defineConfig({
   base: APP_BASE,

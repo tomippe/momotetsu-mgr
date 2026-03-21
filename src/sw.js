@@ -13,10 +13,14 @@ cleanupOutdatedCaches()
 // ナビゲーションは cache: 'no-store' — 古い index.html が HTTP キャッシュから返り、
 // ハッシュ付き JS が 404 になる（リロードで真っ白）のを防ぐ
 registerRoute(
-  ({ request, url }) =>
-    request.method === 'GET' &&
-    url.origin === self.location.origin &&
-    url.pathname.startsWith('/momotetsu-mgr/run'),
+  ({ request, url }) => {
+    const p = url.pathname
+    return (
+      request.method === 'GET' &&
+      url.origin === self.location.origin &&
+      (p === '/momotetsu-mgr' || p.startsWith('/momotetsu-mgr/'))
+    )
+  },
   async ({ request }) => {
     const opts =
       request.mode === 'navigate' ? { cache: 'no-store' } : {}
