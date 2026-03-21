@@ -10,10 +10,16 @@ precacheAndRoute(self.__WB_MANIFEST)
 cleanupOutdatedCaches()
 
 // キャッシュに保存せず常に fetch のみ（NetworkOnly と同等）
+// ナビゲーションは cache: 'no-store' — 古い index.html が HTTP キャッシュから返り、
+// ハッシュ付き JS が 404 になる（リロードで真っ白）のを防ぐ
 registerRoute(
   ({ request, url }) =>
     request.method === 'GET' &&
     url.origin === self.location.origin &&
     url.pathname.startsWith('/momotetsu-mgr/run'),
-  async ({ request }) => fetch(request)
+  async ({ request }) => {
+    const opts =
+      request.mode === 'navigate' ? { cache: 'no-store' } : {}
+    return fetch(request, opts)
+  }
 )
