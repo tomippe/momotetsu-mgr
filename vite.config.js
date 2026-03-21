@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
-/** 本番の配置パス（末尾スラッシュ必須）。FTP は apps/momotetsu-mgr/ 直下。PWA の start_url は /momotetsu-mgr/run/（POUCHES の /pouches/run/ と同様）だが、アセットはここを base に */
+/** 本番の配置パス（末尾スラッシュ必須）。FTP は apps/momotetsu-mgr/ 直下。manifest の scope は /momotetsu-mgr/run/ のみ（紹介ページにインストールアイコンを出さないため） */
 const APP_BASE = '/momotetsu-mgr/'
 
 export default defineConfig({

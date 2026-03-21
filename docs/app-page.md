@@ -5,6 +5,11 @@
 - 紹介ページ: https://apps.tomippe.jp/momotetsu-mgr/
 - アプリ本体: https://apps.tomippe.jp/momotetsu-mgr/run/
 
+### PWA（manifest）
+
+- **scope / id** は **`/momotetsu-mgr/run/`** に限定（`public/manifest.webmanifest`）。  
+  `scope` を `/momotetsu-mgr/` 全体にすると、WordPress の紹介ページでも「インストール」扱いになりブラウザにインストールアイコンが出るため。
+
 ## WordPress
 
 - 投稿タイプ: `app`
