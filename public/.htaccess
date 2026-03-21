@@ -1,0 +1,9 @@
+# momotetsu-mgr 静的配信（このフォルダがドキュメントルート配下にある場合）
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # 古いPWAの /momotetsu-mgr/run（末尾スラッシュなし）→ run/ へ
+  # さもないと WordPress 側が 404 になりやすい
+  RewriteRule ^run$ run/ [R=301,L]
+</IfModule>

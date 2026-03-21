@@ -1,0 +1,11 @@
+ホーム画面のショートカットが /momotetsu-mgr/run（スラッシュなし）のままだと、
+WordPress のリライトが先に効いて静的フォルダに届かず 404 になることがあります。
+
+その場合は、サイトのドキュメントルートにある WordPress 用 .htaccess の
+「# BEGIN WordPress」より上に、次の 1 行を追加してください。
+
+  RewriteRule ^momotetsu-mgr($|/) - [L]
+
+（RewriteEngine On が既にある行は重複させないでください。なければ RewriteEngine On も追加。）
+
+これで /momotetsu-mgr/ 以下は WordPress に渡らず、public/.htaccess と run/index.html が効きます。
