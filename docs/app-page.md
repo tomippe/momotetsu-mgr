@@ -14,7 +14,7 @@
 
 | 用途 | ソースファイル | 備考 |
 |------|----------------|------|
-| スクリーンショット（app-ss01） | `IMG_4097.PNG`（リポジトリ直下） | 1170×2532。表示幅 **app-ss01width: 600**（ACF） |
+| スクリーンショット（app-ss01） | `IMG_4097.PNG`（リポジトリ直下） | 1170×2532。表示幅 **app-ss01width: 600**（ACF）。**app-ss01radius**: オン（角丸） |
 | KV 背景（app-kvbg） | `public/bg-sky.png` | 1024×576 |
 | アイコン（app-icon） | `momo-illust6.png` | 紹介ページ用。メディア ID は WordPress 側で管理 |
 
