@@ -14,24 +14,25 @@
 
 | 用途 | ソースファイル | 備考 |
 |------|----------------|------|
-| スクリーンショット（app-ss01） | `IMG_4097.PNG`（リポジトリ直下） | 1170×2532。差し替え時はメディアを再アップして ACF を更新 |
+| スクリーンショット（app-ss01） | `IMG_4097.PNG`（リポジトリ直下） | 1170×2532。表示幅 **app-ss01width: 600**（ACF） |
 | KV 背景（app-kvbg） | `public/bg-sky.png` | 1024×576 |
-| アイコン（app-icon） | `public/pwa-512.png` | 512×512 |
+| アイコン（app-icon） | `momo-illust6.png` | 紹介ページ用。メディア ID は WordPress 側で管理 |
 
 ## ACF 設定（KV）
 
-- **app-keycolor**: `#7DD3FC`
+- **app-keycolor**: `#3eaef7`（KV オーバーレイと揃え）
+- **app-ss01width**: `600`
 - **app-kvbgaddcss**（指定どおり明示設定）:
 
 ```
 background-repeat: no-repeat;
 background-position: center;
 background-size: cover;
-background-color: #7DD3FC;
-background-blend-mode: hard-light;
+background-color: #3eaef7;
+background-blend-mode: multiply;
 ```
 
-青（`#7DD3FC`）を重ねて **hard-light** でブレンド。キー色と揃えている。
+青（`#3eaef7`）を重ねて **multiply（乗算）** でブレンド。
 
 ## キャッチ・ボタン
 
