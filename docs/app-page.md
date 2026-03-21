@@ -36,8 +36,9 @@ background-blend-mode: multiply;
 
 ## キャッチ・ボタン
 
-- **app-cp**: 周遊カードの枚数と効果を、対戦中にサッと管理
-- **app-webdesc**: `Webブラウザ（PWA）<br>日本語`
+- **app-cp**: 2 行（`\r\n`）— POUCHES 等と同様の改行キャッチ  
+  例: `周遊カードの枚数と効果を\r\n対戦中にサッと管理`
+- **app-webdesc**: `HTML5, CSS3 Required<br>日本語`（yticapo / bg-css-gen / POUCHES の Web 行に倣い、共通ルールの「対応言語」は 2 行目に記載）
 - **app-weburl**: `https://apps.tomippe.jp/momotetsu-mgr/run/`
 - **platform**: `["web"]`
 
