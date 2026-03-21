@@ -316,6 +316,7 @@ function renderCard(card, arr, index, target) {
 function renderSeriesSelect() {
   return `
     <div class="series-select">
+      <img class="series-select-logo" src="${import.meta.env.BASE_URL}logo.png" alt="" />
       <h1>MOMOTETSU<br>Card Manager</h1>
       <p class="series-select-prompt" style="margin-bottom: 0.75rem;">シリーズを選んでください</p>
       <div class="series-grid">

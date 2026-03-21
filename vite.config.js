@@ -16,6 +16,7 @@ export default defineConfig({
         'pwa-192.png',
         'pwa-512.png',
         'bg-sky.png',
+        'logo.png',
         'icons.svg',
       ],
       manifest: {

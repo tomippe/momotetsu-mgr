@@ -56,9 +56,19 @@ body {
   padding: 1rem;
 }
 
+.series-select-logo {
+  display: block;
+  width: 150px;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1.25rem;
+  object-fit: contain;
+}
+
 /* 背景に直接重なる文字：黒縁＋白字 */
 .series-select h1 {
   font-size: 1.75rem;
+  margin-top: 0;
   margin-bottom: 0.5rem;
   text-align: center;
 }
