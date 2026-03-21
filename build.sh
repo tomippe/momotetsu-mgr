@@ -46,11 +46,20 @@ echo "🔨 ビルドを開始します..."
 npm run build
 
 # ビルド結果をデプロイ先にコピー（dist/ → DEPLOY_DIR）
+# dist/* だと .htaccess が落ちるため rsync で dotfiles も同期
 if [ -d dist ]; then
     mkdir -p "$DEPLOY_DIR"
-    rm -rf "$DEPLOY_DIR"/*
-    cp -R dist/* "$DEPLOY_DIR/"
-    echo "  ✓ ${DEPLOY_DIR}/ にコピーしました"
+    rsync -a --delete dist/ "$DEPLOY_DIR/"
+    echo "  ✓ ${DEPLOY_DIR}/ にコピーしました（.htaccess 含む）"
+fi
+
+# POUCHES と同様: manifest の start_url は /{slug}/run/ 。
+# Vite の base は /momotetsu-mgr/ のまま（アセットは /momotetsu-mgr/assets/…）。
+# run/ にはルートと同一の index.html を置き、ホーム画面からも同じ JS/CSS を読む。
+if [ -f "$DEPLOY_DIR/index.html" ]; then
+    mkdir -p "$DEPLOY_DIR/run"
+    cp "$DEPLOY_DIR/index.html" "$DEPLOY_DIR/run/index.html"
+    echo "  ✓ ${DEPLOY_DIR}/run/index.html を配置（PWA start_url 用・POUCHES と同パターン）"
 fi
 
 echo "✅ ビルドが完了しました！"

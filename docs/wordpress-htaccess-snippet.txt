@@ -8,4 +8,8 @@ WordPress のリライトが先に効いて静的フォルダに届かず 404 �
 
 （RewriteEngine On が既にある行は重複させないでください。なければ RewriteEngine On も追加。）
 
-これで /momotetsu-mgr/ 以下は WordPress に渡らず、public/.htaccess と run/index.html が効きます。
+これで /momotetsu-mgr/ 以下は WordPress に渡らず、静的ファイル（momotetsu-mgr/.htaccess、
+run/index.html 等）が効きます。run/index.html は build.sh がルート index と同一内容で配置
+（POUCHES の /pouches/run/ と同じ考え方）。
+
+momotetsu-mgr 配下の public/.htaccess は、末尾スラッシュなしの /run を /run/ へ寄せる用途。

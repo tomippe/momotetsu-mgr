@@ -13,7 +13,12 @@ alwaysApply: true
 - **種別**: Webアプリ（Vite + 静的サイト）
 - **ビルド**: `npm run build` → `dist/` をデプロイ先にコピー
 - **デプロイ**: `../apps.tomippe.jp/momotetsu-mgr/` → FTPディレクトリ同期
-- **開発サーバー**: ポート 5175（`npm run dev`）
+- **開発サーバー**: ポート **5176**（`npm run dev`）、開き方は `http://localhost:5176/momotetsu-mgr/`（[vite.config.js](vite.config.js) の `base` に合わせる）
+
+## 参考（他アプリとの揃え方）
+
+- **POUCHES**（`../pouches/web/build.sh`）と同様、**PWA の `start_url` は `/{slug}/run/`**、**アセットの publicPath / Vite base は `/{slug}/`**（`run` は URL 用のサブパスのみ）。
+- `build.sh` が **`run/index.html` にルートの `index.html` を複製**するので、ホーム画面は `/momotetsu-mgr/run/` でも **同じ `/momotetsu-mgr/assets/…`** を読む。
 
 ## 固有設定
 
