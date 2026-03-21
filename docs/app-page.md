@@ -25,7 +25,7 @@
 HTML 例:
 
 ```html
-<p style="margin-top: 1.5em;">※<a href="https://www.konami.com/games/momotetsu/teiban/" target="_blank" rel="noopener noreferrer">「桃太郎電鉄」</a>は<a href="https://www.konami.com/games/jp/ja/" target="_blank" rel="noopener noreferrer">株式会社コナミデジタルエンタテインメント</a>の登録商標です。</p>
+<p style="margin-top: 1.5em;">※「<a href="https://www.konami.com/games/momotetsu/teiban/" target="_blank" rel="noopener noreferrer">桃太郎電鉄</a>」は<a href="https://www.konami.com/games/jp/ja/" target="_blank" rel="noopener noreferrer">株式会社コナミデジタルエンタテインメント</a>の登録商標です。</p>
 ```
 
 ## 画像・メディア（再アップロード時のメモ）
