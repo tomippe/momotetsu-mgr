@@ -7,6 +7,7 @@ alwaysApply: true
 
 **共通ルール（自動では読み込まれないため、ファイル編集・ビルド・コミットの前に必ず Read ツールで読むこと）:**
 - `../build-common/.cursor/rules/build-system.mdc`
+- **`~/.cursor/rules/project-common.mdc`** の「**apps.tomippe.jp 静的 Web アプリ（Vite 等）— 白画面・404・インストールアイコンの典型回避**」（base / manifest scope / SW / rsync・FTP の dotfiles）
 
 ## 概要
 
