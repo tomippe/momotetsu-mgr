@@ -10,56 +10,19 @@ export default defineConfig({
   plugins: [
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: [
-        'favicon.png',
-        'apple-touch-icon.png',
-        'pwa-192.png',
-        'pwa-512.png',
-        'bg-sky.png',
-        'logo.png',
-        'icons.svg',
-      ],
-      manifest: {
-        id: './',
-        name: 'MOMOTETSU Card Manager',
-        short_name: 'カード管理',
-        description: '桃太郎電鉄のカード（周遊など）を管理するWebアプリ',
-        theme_color: '#7DD3FC',
-        background_color: '#7DD3FC',
-        display: 'standalone',
-        display_override: ['standalone', 'minimal-ui'],
-        orientation: 'any',
-        start_url: './',
-        scope: './',
-        lang: 'ja',
-        dir: 'ltr',
-        categories: ['games', 'utilities'],
-        icons: [
-          {
-            src: 'pwa-192.png',
-            sizes: '192x192',
-            type: 'image/png',
-            purpose: 'any',
-          },
-          {
-            src: 'pwa-512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any',
-          },
-          {
-            src: 'pwa-512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'maskable',
-          },
-        ],
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.js',
+      injectManifest: {
+        globPatterns: [],
+        maximumFileSizeToCacheInBytes: 0,
       },
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2,woff,ttf}'],
-        navigateFallback: 'index.html',
-        navigateFallbackDenylist: [/^\/api\//],
-      },
+      // precache に含めない（起動時に古いキャッシュを掴まない）
+      includeAssets: [],
+      includeManifestIcons: false,
+      // manifest をプラグインで持つと manifest.webmanifest が必ず precache されるため、
+      // public/manifest.webmanifest を静的配信し、ここでは false
+      manifest: false,
       devOptions: {
         enabled: false,
       },

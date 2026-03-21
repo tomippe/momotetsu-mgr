@@ -1,0 +1,36 @@
+{
+  "name": "MOMOTETSU Card Manager",
+  "short_name": "カード管理",
+  "description": "桃太郎電鉄のカード（周遊など）を管理するWebアプリ",
+  "start_url": "/momotetsu-mgr/run/",
+  "display": "standalone",
+  "background_color": "#7DD3FC",
+  "theme_color": "#7DD3FC",
+  "lang": "ja",
+  "scope": "/momotetsu-mgr/run/",
+  "id": "/momotetsu-mgr/run/",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "dir": "ltr",
+  "categories": ["games", "utilities"],
+  "icons": [
+    {
+      "src": "pwa-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "pwa-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "pwa-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
