@@ -14,7 +14,7 @@ const APPS_SITE_URL = 'https://apps.tomippe.jp/'
 
 function appsLogoHtml(extraClass = '') {
   const cls = ['apps-logo', extraClass].filter(Boolean).join(' ')
-  return `<p class="${cls}"><a href="${APPS_SITE_URL}" target="_blank" rel="noopener noreferrer"><img src="${appsLogoUrl}" alt="StudioTomippe Apps" width="299" height="50" /></a></p>`
+  return `<p class="${cls}"><a href="${APPS_SITE_URL}" target="_blank" rel="noopener noreferrer"><img src="${appsLogoUrl}" alt="StudioTomippe Apps" width="179" height="30" /></a></p>`
 }
 const DEFAULT_STATE = {
   version: 2,

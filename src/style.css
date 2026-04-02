@@ -177,7 +177,7 @@ body {
 }
 
 .apps-logo--series img {
-  width: min(70%, 220px);
+  width: min(42%, 132px);
 }
 
 .apps-logo--main {
@@ -186,13 +186,13 @@ body {
   bottom: calc(2.35rem + env(safe-area-inset-bottom, 0px));
   transform: translateX(-50%);
   z-index: 99;
-  width: min(92vw, 240px);
+  width: min(55vw, 144px);
   pointer-events: auto;
 }
 
 .apps-logo--main img {
   width: 100%;
-  max-width: 220px;
+  max-width: 132px;
 }
 
 /* メイン画面 */
