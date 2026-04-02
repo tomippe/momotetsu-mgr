@@ -151,6 +151,50 @@ body {
   box-shadow: var(--shadow-hover);
 }
 
+/* APPS ロゴ（pouches 準拠・下中央） */
+.apps-logo {
+  margin: 0;
+  text-align: center;
+}
+
+.apps-logo a {
+  display: inline-block;
+  line-height: 0;
+}
+
+.apps-logo img {
+  height: auto;
+  vertical-align: middle;
+  opacity: 0.7;
+  max-width: 100%;
+}
+
+.apps-logo--series {
+  margin-top: auto;
+  padding-top: 1.25rem;
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  width: 100%;
+}
+
+.apps-logo--series img {
+  width: min(70%, 220px);
+}
+
+.apps-logo--main {
+  position: fixed;
+  left: 50%;
+  bottom: calc(2.35rem + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  z-index: 99;
+  width: min(92vw, 240px);
+  pointer-events: auto;
+}
+
+.apps-logo--main img {
+  width: 100%;
+  max-width: 220px;
+}
+
 /* メイン画面 */
 .main-wrap {
   display: flex;

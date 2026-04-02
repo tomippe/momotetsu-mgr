@@ -9,6 +9,13 @@ import {
 } from './cards.js'
 
 const STORAGE_KEY = 'momotetsu-mgr'
+const APPS_SITE_URL = 'https://apps.tomippe.jp/'
+
+function appsLogoHtml(extraClass = '') {
+  const src = `${import.meta.env.BASE_URL}assets/apps-logo.svg`
+  const cls = ['apps-logo', extraClass].filter(Boolean).join(' ')
+  return `<p class="${cls}"><a href="${APPS_SITE_URL}" target="_blank" rel="noopener noreferrer"><img src="${src}" alt="StudioTomippe Apps" width="299" height="50" /></a></p>`
+}
 const DEFAULT_STATE = {
   version: 2,
   seriesId: null,
@@ -328,6 +335,7 @@ function renderSeriesSelect() {
           </button>
         `).join('')}
       </div>
+      ${appsLogoHtml('apps-logo--series')}
     </div>
   `
 }
@@ -448,6 +456,7 @@ function renderMain() {
       <div class="catalog-content">${catalogHtml}</div>
     </div>
     <div class="trash-zone" data-drop-zone="trash" title="ゴミ箱にドロップで削除"><svg class="icon-trash" width="20" height="20" viewBox="0 0 24 24"><use href="#trash-icon"/></svg></div>
+    ${appsLogoHtml('apps-logo--main')}
     <div class="picker-overlay" style="display:none">
       <div class="picker-panel">
         <div class="picker-header">
