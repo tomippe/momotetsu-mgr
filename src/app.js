@@ -7,14 +7,14 @@ import {
   getSeriesLimits,
   CARD_CATEGORIES,
 } from './cards.js'
+import appsLogoUrl from './assets/apps-logo.svg?url'
 
 const STORAGE_KEY = 'momotetsu-mgr'
 const APPS_SITE_URL = 'https://apps.tomippe.jp/'
 
 function appsLogoHtml(extraClass = '') {
-  const src = `${import.meta.env.BASE_URL}assets/apps-logo.svg`
   const cls = ['apps-logo', extraClass].filter(Boolean).join(' ')
-  return `<p class="${cls}"><a href="${APPS_SITE_URL}" target="_blank" rel="noopener noreferrer"><img src="${src}" alt="StudioTomippe Apps" width="299" height="50" /></a></p>`
+  return `<p class="${cls}"><a href="${APPS_SITE_URL}" target="_blank" rel="noopener noreferrer"><img src="${appsLogoUrl}" alt="StudioTomippe Apps" width="299" height="50" /></a></p>`
 }
 const DEFAULT_STATE = {
   version: 2,
