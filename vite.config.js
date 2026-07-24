@@ -6,6 +6,10 @@ const APP_BASE = '/momotetsu-mgr/'
 
 export default defineConfig({
   base: APP_BASE,
+  build: {
+    outDir: 'build',
+    emptyOutDir: true,
+  },
   server: {
     host: true,
     port: 5176,

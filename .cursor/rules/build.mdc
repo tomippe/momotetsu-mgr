@@ -12,7 +12,7 @@ alwaysApply: true
 ## 概要
 
 - **種別**: Webアプリ（Vite + 静的サイト）
-- **ビルド**: `npm run build` → `dist/` をデプロイ先にコピー
+- **ビルド**: `npm run build` → `build/` をデプロイ先にコピー
 - **デプロイ**: `../apps.tomippe.jp/momotetsu-mgr/` → FTPディレクトリ同期
 - **開発サーバー**: ポート **5176**（`npm run dev`）、開き方は `http://localhost:5176/momotetsu-mgr/`（[vite.config.js](vite.config.js) の `base` に合わせる）
 
@@ -23,5 +23,5 @@ alwaysApply: true
 
 ## 固有設定
 
-- ビルド成果物: `dist/`（Vite デフォルト）
+- ビルド成果物: `build/`
 - デプロイ先: `../apps.tomippe.jp/momotetsu-mgr/`

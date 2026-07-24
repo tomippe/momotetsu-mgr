@@ -30,10 +30,14 @@ done
 # バージョン読み込み
 VERSION=$(version_read)
 
-# package.json のバージョンを更新
+# package.json / manifest.json のバージョンを更新
 if [ -f package.json ]; then
     jq ".version = \"${VERSION}\"" package.json > package.json.tmp && mv package.json.tmp package.json
     echo "  ✓ package.jsonのバージョンを v${VERSION} に更新しました"
+fi
+if [ -f public/manifest.json ]; then
+    jq ".version = \"${VERSION}\"" public/manifest.json > public/manifest.json.tmp && mv public/manifest.json.tmp public/manifest.json
+    echo "  ✓ manifest.jsonのバージョンを v${VERSION} に更新しました"
 fi
 
 echo "🎴 ${APP_NAME} v${VERSION} をビルド中..."
@@ -45,11 +49,11 @@ dev_server_stop $DEV_PORT
 echo "🔨 ビルドを開始します..."
 npm run build
 
-# ビルド結果をデプロイ先にコピー（dist/ → DEPLOY_DIR）
-# dist/* だと .htaccess が落ちるため rsync で dotfiles も同期
-if [ -d dist ]; then
+# ビルド結果をデプロイ先にコピー（build/ → DEPLOY_DIR）
+# build/* だと .htaccess が落ちるため rsync で dotfiles も同期
+if [ -d build ]; then
     mkdir -p "$DEPLOY_DIR"
-    rsync -a --delete dist/ "$DEPLOY_DIR/"
+    rsync -a --delete build/ "$DEPLOY_DIR/"
     echo "  ✓ ${DEPLOY_DIR}/ にコピーしました（.htaccess 含む）"
 fi
 
